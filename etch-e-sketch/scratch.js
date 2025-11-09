@@ -142,7 +142,7 @@ square.addEventListener('mouseenter', () => {
   square.classList.add('drawn');
 });
 // or
-square.addEventListener('mouseover', () => { ... })
+// square.addEventListener('mouseover', () => { ... })
 
 // If you want one handler for all squares:
 container.addEventListener('mouseover', (e) => {
