@@ -1,24 +1,29 @@
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  margin: 0;
+    display: flex;
+    flex-direction: column;     /* stack top-to-bottom instead of side-by-side */
+    align-items: center;        /* keep them centered horizontally */
+    justify-content: center;    /* center vertically if you want */
+    min-height: 100vh;
+    margin: 0;
 }
 
 #container {
-  display: flex;
-  flex-wrap: wrap;
-  width: 640px;
-  height: 640px;
+    display: flex;
+    flex-wrap: wrap;
+    width: 640px;
+    height: 640px;
 }
 
 .square {
-  width: 40px;
-  height: 40px;
-  border: 1px solid #ddd;
+    width: 40px;
+    height: 40px;
+    border: 1px solid #ddd;
+}
+
+.hover {
+    background-color: #111;
 }
