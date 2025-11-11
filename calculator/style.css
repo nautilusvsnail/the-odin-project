@@ -1,0 +1,29 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;     /* stack top-to-bottom instead of side-by-side */
+    align-items: center;        /* keep them centered horizontally */
+    justify-content: center;    /* center vertically if you want */
+    min-height: 100vh;
+    margin: 0;
+}
+
+#buttons {
+    display: flex;
+    flex-wrap: wrap;
+    width: 640px;
+    height: 640px;
+}
+
+button {
+    width: 160px;
+    height: 160px;
+    border: 1px solid #ddd;
+}
+
+.hover {
+    background-color: #111;
+}
