@@ -11,9 +11,17 @@ body {
     margin: 0;
 }
 
-#buttons {
+#fields {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: stretch;
+}
+
+
+#buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     width: 640px;
     height: 640px;
 }
@@ -24,6 +32,16 @@ button {
     border: 1px solid #ddd;
 }
 
+#clear {
+    width: 320px;
+    grid-column: span 2;
+}
+
+#zero {
+    margin: 0px 160px 0px 160px; /* top right bottom left */
+    grid-column: span 3;
+}
 .hover {
     background-color: #111;
+    opacity: .05;
 }

@@ -9,14 +9,19 @@ TODO
 
 
 
-const operatorNodeList = document.querySelector('#operators').childNodes;
-const numberNodeList = document.querySelector('#numbers').childNodes;
+const operatorNodeList = document.querySelectorAll('.operator');
+const numberNodeList = document.querySelectorAll('.digit');
 const equalNode = document.querySelector('#equals');
 const clearNode = document.querySelector('#clear');
+const runningTotal = document.querySelector('#running-total');
+const entryField = document.querySelector('#entry');
+const decimalNode = document.querySelector('#decimal');
+const buttonsNode = document.querySelector('#buttons');
 
 const State = Object.freeze({
     FIRST_TERM: "First Term",
-    SECOND_TERM: "Second Term"
+    SECOND_TERM: "Second Term",
+    SOLVED: "Solved"
 });
 
 const Operators = Object.freeze({
@@ -36,12 +41,12 @@ let operationReg = null;
 let numberObj = {};
 let operatorObj = {};
 
+let decimalSet = false;
+
 numberNodeList.forEach(btn => { 
     numberObj[btn.id] = btn;
     numberObj[btn.id].val = parseInt(numberObj[btn.id].textContent);
-    btn.addEventListener('click', e => {
-        entryReg.push(e.target.textContent);
-    });
+    btn.addEventListener('click', handleDigitKeyPress);
 });
 
 operatorNodeList.forEach(btn => { 
@@ -51,21 +56,62 @@ operatorNodeList.forEach(btn => {
 
 equalNode.addEventListener('click', handleEqualPress);
 clearNode.addEventListener('click', handleClearPress);
+decimalNode.addEventListener('click', handleDecimalPress);
 
-function handleOperatorKeyPress(e) {
+buttonsNode.addEventListener('mouseover', (event) => {
+    event.target.classList.add('hover');
+});
+buttonsNode.addEventListener('mouseout', (event) => {
+    event.target.classList.remove('hover');
+})
+
+document.addEventListener("keydown", (event) => {
+    const keyName = event.key;
+
+    if (event.code.includes("Digit")) {
+        handleDigitKeyPress(event);
+    } else if (
+        keyName === "+" ||
+        keyName === "-" ||
+        keyName === "*" ||
+        keyName === "/"
+    ) {
+        handleOperatorKeyPress(event);
+    } else if ( keyName === "=" ) {
+        handleEqualPress();
+    } else if (keyName === ".") {
+        handleDigitKeyPress(event);
+    } else if (keyName === "c") {
+        handleClearPress();
+    } // else do nothing
+});
+
+function handleDigitKeyPress(event) {
+    if (systemState === State.SOLVED) {
+        clearCalc();
+    }
+    entryReg.push(event.target.textContent);
+    entryField.textContent = entryReg.join('');
+}
+
+function handleOperatorKeyPress(event) {
     if (systemState === State.FIRST_TERM) {
         firstTerm = consumeEntryRegister();
-        operationReg = e.target.id;
+        operationReg = event.target.id;
         systemState = State.SECOND_TERM;
+        runningTotal.textContent = [firstTerm, event.target.textContent].join(' ');
+        entryField.textContent = '';
+        decimalSet = false;
     } else if (systemState === State.SECOND_TERM) {
         if (entryReg.length !== 0) {
             secondTerm = consumeEntryRegister();
             let solution = solveCalc(firstTerm, secondTerm, operationReg);
             if (solution !== null) {
-                alert(solution);
+                runningTotal.textContent = [solution, event.target.textContent].join(' ');
                 firstTerm = solution;
-                operationReg = e.target.id;
+                operationReg = event.target.id;
                 systemState = State.SECOND_TERM;
+                decimalSet = false;
             } else {
                 clearCalc();
             }
@@ -98,8 +144,11 @@ function handleEqualPress() {
         secondTerm = consumeEntryRegister();
         let solution = solveCalc(firstTerm, secondTerm, operationReg);
         if (solution !== null) {
-            alert(solution);
-            clearCalc();
+            runningTotal.textContent = [runningTotal.textContent, secondTerm].join(' ');
+            entryField.textContent = solution;
+            firstTerm = solution;
+            systemState = State.SOLVED;
+            decimalSet = false;
         } else {
             clearCalc();
         }
@@ -110,12 +159,26 @@ function handleClearPress() {
     clearCalc();
 }
 
+function handleDecimalPress() {
+    if (!decimalSet) {
+        if (systemState === State.SOLVED) {
+            clearCalc();
+        }
+        entryReg.push('.');
+        entryField.textContent = entryReg.join('');
+        decimalSet = true;
+    }
+}
+
 function clearCalc() {
     firstTerm = 0;
     secondTerm = 0;
     operationReg = null;
     entryReg = [];
     systemState = State.FIRST_TERM;
+    runningTotal.textContent = '';
+    entryField.textContent = '';
+    decimalSet = false;
 }
 
 function consumeEntryRegister() {

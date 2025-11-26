@@ -7,29 +7,28 @@
         <script src="script.js" defer></script>
     </head>
     <body>
+        <div id="fields">
+            <p id="running-total"></p>
+            <p id="entry"></p>
+        </div>
         <div id="buttons">
-            <div id="operators">
-                <button id="plus">+</button>
-                <button id="minus">-</button>
-                <button id="multiply">*</button>
-                <button id="divide">/</button>
-            </div>
-            <div id="numbers">
-                <button id="one">1</button>
-                <button id="two">2</button>
-                <button id="three">3</button>
-                <button id="four">4</button>
-                <button id="five">5</button>
-                <button id="six">6</button>
-                <button id="seven">7</button>
-                <button id="eight">8</button>
-                <button id="nine">9</button>
-                <button id="zero">0</button>
-            </div>
-            <div id="functions">
-                <button id="equals">=</button>
-                <button id="clear">C</button>
-            </div>
+            <button id="clear">C</button>
+            <button id="decimal">.</button>
+            <button id="plus" class="operator">+</button>
+            <button id="one" class="digit">1</button>
+            <button id="two" class="digit">2</button>
+            <button id="three" class="digit">3</button>
+            <button id="minus" class="operator">-</button>
+            <button id="four" class="digit">4</button>
+            <button id="five" class="digit">5</button>
+            <button id="six" class="digit">6</button>
+            <button id="multiply" class="operator">*</button>
+            <button id="seven" class="digit">7</button>
+            <button id="eight" class="digit">8</button>
+            <button id="nine" class="digit">9</button>
+            <button id="divide" class="operator">/</button>
+            <button id="zero" class="digit">0</button>
+            <button id="equals">=</button>
         </div>
     </body>
 </html>
