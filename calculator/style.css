@@ -8,7 +8,15 @@ body {
     align-items: center;        /* keep them centered horizontally */
     justify-content: center;    /* center vertically if you want */
     min-height: 100vh;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 24px;
+    color: darkslategray;
     margin: 0;
+}
+
+button, input, select, textarea {
+  font: inherit;
+  color: inherit;
 }
 
 #fields {
@@ -32,16 +40,10 @@ button {
     border: 1px solid #ddd;
 }
 
-#clear {
-    width: 320px;
+#zero {
+    margin: 0px 0px 0px 160px; /* top right bottom left */
     grid-column: span 2;
 }
-
-#zero {
-    margin: 0px 160px 0px 160px; /* top right bottom left */
-    grid-column: span 3;
-}
 .hover {
-    background-color: #111;
-    opacity: .05;
+    background-color: rgba(17, 17, 17, 0.05); /* 5% opaque black overlay */
 }
